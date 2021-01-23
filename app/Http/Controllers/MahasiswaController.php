@@ -39,7 +39,7 @@ class MahasiswaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nim' => 'required|unique:mahasiswas',
+            'nim' => 'required|unique:mahasiswas,nim',
             'nama' => 'required',
             'jurusan_id' => 'required',
             'jenis_kelamin' => 'required',
@@ -58,7 +58,7 @@ class MahasiswaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Mahasiswa $mahasiswah)
+    public function show(Mahasiswa $mahasiswa)
     {
         return view('mahasiswa.show',compact('mahasiswa'));
     }

@@ -30,9 +30,9 @@
         <tbody>
         	@foreach($mahasiswas as $data)
         	<tr>
-        		<td>{{$data->nim}}</td>
+        		<td><a href="{{route('mahasiswa.show',$data->id)}}">{{$data->nim}}</a></td>
         		<td>{{$data->nama}}</td>
-        		<td>{{$data->jurusan->nama_jurusan}}</td>
+        		<td>{{$data->jurusan->nama_jurusan ? $data->jurusan->nama_jurusan : ''}}</td>
         		<td>{{$data->jenis_kelamin}}</td>
         		<td>{{$data->alamat}}</td>
         		<td>{{$data->tempat_lahir}}</td>
