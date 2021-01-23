@@ -1,7 +1,7 @@
 
 ## Install Laravel
 
-> git clone
+> git clone https://github.com/ndriodna/crud_mahasiswa
 #
 > composer install
 #
