@@ -6,6 +6,18 @@
     <div class="container-fluid">
         <a class="h4 mb-0 text-white text-uppercase d-none d-lg-inline-block" href="{{ route('dashboard') }}">{{ __('Dashboard') }}</a>
     </div>
+    @if(Auth::check())
+    <div class="p-2">
+        <form action="{{route('logout')}}" method="POST">
+            @csrf
+            @method('POST')
+       <button type="submit" class="btn btn-warning">
+            <i class="fa fa-sign-out-alt"></i>
+       </button>
+        </form>
+    </div>
+    @else
+    @endif
 </nav>
     @include('layouts.headers.cards')
     <div style="margin-top: -150px;" class="row container-fluid">
@@ -55,6 +67,7 @@
     <div class="container-fluid mt--7">
         <div class="row">
             <div class="col-xl-8 mb-5 mb-xl-0">
+        {{-- {{Auth::user()->getRoleNames()}} --}}
                 
             </div>
             

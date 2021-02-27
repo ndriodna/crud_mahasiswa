@@ -20,11 +20,11 @@
         <!-- Argon CSS -->
         <link type="text/css" href="{{ asset('argon') }}/css/argon.css?v=1.0.0" rel="stylesheet">
     </head>
-    <body class="{{ $class ?? '' }}">
-
+    <body>
+        @if(Auth::check())
             @include('layouts.navbars.sidebar')
-        
-        <div class="main-content">
+        @endif
+        <div id="app" class="main-content">
             @include('layouts.navbars.navbar')
             @yield('content')
         </div>
@@ -33,9 +33,8 @@
         <script src="{{ asset('argon') }}/vendor/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
          <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
-        @stack('js')
-        
         <!-- Argon JS -->
         <script src="{{ asset('argon') }}/js/argon.js?v=1.0.0"></script>
+        @stack('js')
     </body>
 </html>

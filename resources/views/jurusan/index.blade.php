@@ -10,6 +10,7 @@
     <div class="bg-primary pb-8 pt-5 pt-md-8">
 </div>
     <div class="container-fluid" style="margin-top: -150px; margin-bottom: 50px;">
+        <div class="p-2 bg-white rounded">
     	<a href="{{route('jurusan.create')}}" class="btn btn-success m-3"><i class="fas fa-plus-square"></i> Tambah</a>
     	<div>
     		
@@ -41,6 +42,8 @@
         </tbody>
     </table>
     	</div>
+            
+        </div>
  </div>
  @push('js')
  <script>

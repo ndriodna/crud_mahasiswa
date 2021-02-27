@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use App\Models\Jurusan;
 use DataTables;
+use Illuminate\Support\Facades\Storage;
+use File;
+use Illuminate\Support\Str;
 class MahasiswaController extends Controller
 {
     /**
@@ -15,7 +18,7 @@ class MahasiswaController extends Controller
      */
     public function index(Request $request)
     {
-        $mahasiswas = Mahasiswa::all();
+        $mahasiswas = Mahasiswa::orderBy('created_at','desc')->get();
         return view('mahasiswa.index',compact('mahasiswas'));
     }
 
@@ -36,20 +39,35 @@ class MahasiswaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function saveFile($nim,$photos)
+    {
+        $setName = $nim.'-'.time().'.'.$photos->getClientOriginalExtension();
+       $path = $photos->storeAs('profile-mahasiswa',$setName);
+        return $path;
+    }
     public function store(Request $request)
     {
         $request->validate([
             'nim' => 'required|unique:mahasiswas,nim',
-            'nama' => 'required',
+            'nama' => 'required|string',
             'jurusan_id' => 'required',
             'jenis_kelamin' => 'required',
             'alamat' => 'required',
             'tempat_lahir' => 'required',
             'tgl_lahir' => 'required|date',
             'thn_masuk' => 'required|integer',
+            'photos' => 'nullable|image|mimes:jpg,png,jpeg',
         ]);
-        Mahasiswa::create($this->MahasiswaStore());
+        try {
+            $photo = null;
+            if ($request->hasfile('photos')) {
+                $photo = $this->saveFile($request->nim,$request->file('photos'));
+            }
+        Mahasiswa::create($this->MahasiswaStore($photo));
         return redirect()->route('mahasiswa.index');
+        } catch (Exception $e) {
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 
     /**
@@ -85,8 +103,30 @@ class MahasiswaController extends Controller
      */
     public function update(Request $request, $id)
     {
-       $mahasiswa = Mahasiswa::find($id)->update($this->MahasiswaStore());
+        $request->validate([
+            'nim' => 'required|exists:mahasiswas,nim',
+            'nama' => 'required|string',
+            'jurusan_id' => 'required',
+            'jenis_kelamin' => 'required',
+            'alamat' => 'required',
+            'tempat_lahir' => 'required',
+            'tgl_lahir' => 'required|date',
+            'thn_masuk' => 'required|integer',
+            'photos' => 'nullable|image|mimes:jpg,png,jpeg',
+        ]);
+        try {
+
+       $mahasiswa = Mahasiswa::findOrFail($id);
+       $photos = $mahasiswa->photos;
+       if ($request->hasfile('photos')) {
+           Storage::delete($photos);
+        $photo = $this->saveFile($request->nim,$request->file('photos'));
+       }
+       $mahasiswa->update($this->MahasiswaStore($photo));
         return redirect()->route('mahasiswa.index');
+        } catch (Exception $e) {
+            
+        }
     }
 
     /**
@@ -97,11 +137,13 @@ class MahasiswaController extends Controller
      */
     public function destroy($id)
     {
-        Mahasiswa::find($id)->delete();
+        $mahasiswa = Mahasiswa::find($id);
+        Storage::delete($mahasiswa->photos);
+        $mahasiswa->delete();
         return redirect()->route('mahasiswa.index');
     }
 
-    public function MahasiswaStore()
+    public function MahasiswaStore($photo)
     {
         return[
             'nim' => request('nim'),
@@ -111,7 +153,8 @@ class MahasiswaController extends Controller
             'alamat' => request('alamat'),
             'tempat_lahir' => request('tempat_lahir'),
             'tgl_lahir' => request('tgl_lahir'),
-            'thn_masuk' => request('thn_masuk')
+            'thn_masuk' => request('thn_masuk'),
+            'photos' => $photo
         ];
     }
 }

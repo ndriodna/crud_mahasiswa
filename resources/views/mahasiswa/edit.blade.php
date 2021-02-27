@@ -9,8 +9,17 @@
 </nav>
     <div class="bg-gradient-primary pb-8 pt-5 pt-md-8">
 </div>
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
     <div class="container-fluid" style="margin-top: -150px">
-     <form action="{{route('mahasiswa.update',$mahasiswas->id)}}" method="POST" class="bg-white rounded p-6 shadow-lg mb-5">
+     <form action="{{route('mahasiswa.update',$mahasiswas->id)}}" method="POST" enctype="multipart/form-data" class="bg-white rounded p-6 shadow-lg mb-5">
          @csrf
          @method('PUT')
 	     <div class="form-group">
@@ -61,6 +70,11 @@
 	    <div class="form-group">
          <label class="form-control-label">Tahun Masuk</label>
 	       <input type="number" name="thn_masuk" class="form-control" value="{{$mahasiswas->thn_masuk}}">
+	    </div>
+	    <div class="form-group">
+         <label class="form-control-label">Foto</label>
+	       <input type="file" name="photos" class="form-control">
+	       <img src="{{asset('storage/'.$mahasiswas->photos)}}" alt="" width="200" height="200" class="p-2">
 	    </div>
 	    <div class="form-group">
 	    	<button type="submit" class="btn btn-success">Update</button>
