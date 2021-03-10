@@ -10,7 +10,7 @@
 	<div class="row ">
 		<div class="col-md-4">
 			<div class="card bg-white rounded p-2 shadow-lg">
-			<form action="{{route('users.add_permission')}}" method="POST" class="card-body">
+			<form action="{{route('roles.add_permission')}}" method="POST" class="card-body">
 				@csrf
 				<div class="form-group">
 					<label for="">Name</label>
@@ -22,7 +22,7 @@
 		</div>
 	<div class="col-md-8">
 		<div class="card rounded p-3 shadow-lg">
-			<form action="{{route('users.role_permissions')}}" method="GET">
+			<form action="{{route('roles.role_permissions')}}" method="GET">
      <div class="form-group">
      	<label for="">Role</label>
      	<select name="role" id="" class="form-control">
@@ -36,7 +36,7 @@
 		</div>
 	@if(!empty($permission))
 		<div class="card rounded p-3 m-2">
-			<form action="{{route('users.setRolePermission',request()->get('role'))}}" method="POST">
+			<form action="{{route('roles.setRolePermission',request()->get('role'))}}" method="POST">
 				@csrf
 				@method('PUT')
 				<div style="overflow-y: scroll; height: 150px;" class="m-2">

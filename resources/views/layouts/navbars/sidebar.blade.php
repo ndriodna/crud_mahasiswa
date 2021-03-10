@@ -8,7 +8,9 @@
         <a class="navbar-brand pt-0" href="{{ route('dashboard') }}">
             <img src="{{ asset('argon') }}/img/brand/blue.png" class="navbar-brand-img" alt="...">
         </a>
-        <span>{{Auth::user()->name}}</span>
+        @foreach(Auth::user()->getRoleNames() as $role)
+        <span>{{$role}}</span>
+        @endforeach
         <!-- Collapse -->
         <div class="collapse navbar-collapse" id="sidenav-collapse-main">
             <!-- Collapse header -->
@@ -34,6 +36,27 @@
                         <i class="ni ni-tv-2 text-primary"></i> {{ __('Dashboard') }}
                     </a>
                 </li>
+                @role('Dosen')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dashboard') }}">
+                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Biodata') }}
+                    </a>
+                </li>
+                @endrole
+                @role('mahasiswa')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dashboard') }}">
+                        <i class="ni ni-tv-2 text-primary"></i> {{ __('Biodata') }}
+                    </a>
+                </li>
+                @endrole
+                @can('edit dosen')
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('dosen.index') }}">
+                        <i class="ni ni-circle-08 text-primary"></i> {{ __('Dosen') }}
+                    </a>
+                </li>
+                @endcan
                 @can('edit mahasiswa')
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('mahasiswa.index') }}">
@@ -62,7 +85,7 @@
                             <a class="nav-link" href="{{ route('roles.index') }}">
                                 <i class="ni ni-tag text-blue"></i> {{ __('Role') }}
                             </a>
-                            <a class="nav-link" href="{{ route('users.role_permissions') }}">
+                            <a class="nav-link" href="{{ route('roles.role_permissions') }}">
                                 <i class="ni ni-tag text-blue"></i> {{ __('Permission') }}
                             </a>
                     </div>

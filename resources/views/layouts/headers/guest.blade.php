@@ -3,7 +3,7 @@
         <div class="header-body text-center mb-7">
             <div class="row justify-content-center">
                 <div class="col-lg-5 col-md-6">
-                    <h1 class="text-white">{{ __('CRUD FORM MAHASISWA') }}</h1>
+                    <h1 class="text-white">{{ __('Sistem Informasi Akademik Sekolah') }}</h1>
                 </div>
             </div>
         </div>

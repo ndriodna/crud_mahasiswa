@@ -59,7 +59,6 @@ class MahasiswaController extends Controller
             'photos' => 'nullable|image|mimes:jpg,png,jpeg',
         ]);
         try {
-            $photo = null;
             if ($request->hasfile('photos')) {
                 $photo = $this->saveFile($request->nim,$request->file('photos'));
             }

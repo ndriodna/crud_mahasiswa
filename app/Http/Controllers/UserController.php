@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Mahasiswa;
+use App\Models\Dosen;
 use Illuminate\Http\Request;
 use App\Http\Request\UserRequest;
 use Illuminate\Support\Facades\Hash;
@@ -11,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -22,8 +24,15 @@ class UserController extends Controller
      */
     public function index()
     {
+        // dd(Auth::user()->getRoleNames());
         $users = User::orderBy('created_at','DESC')->get();
         return view('users.index',compact('users'));
+    }
+
+    public function indexUserLogin()
+    {
+        $users = User::all();
+        return view();
     }
 
     public function create()
@@ -31,6 +40,13 @@ class UserController extends Controller
         $roles = Role::all();
         $mahasiswa = Mahasiswa::all();
         return view('users.create',compact('roles','mahasiswa'));
+    }
+
+    public function createDosen()
+    {
+        $roles = Role::all();
+        $dosen = Dosen::all();
+        return view('users.create-dosen',compact('dosen','roles'));
     }
 
     public function store(Request $request)

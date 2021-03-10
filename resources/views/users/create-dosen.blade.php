@@ -14,11 +14,11 @@
          @csrf
 	    
 	    <div class="form-group">
-	        <label class="form-control-label">Pilih Mahasiswa</label>
+	        <label class="form-control-label">Pilih Dosen</label>
 	        <select name="kode_user" class="form-control">
-	        @foreach($mahasiswa as $data)
-	       <option value="{{$data->nim}}">
-	           {{$data->nim}} - {{$data->nama}}
+	        @foreach($dosen as $data)
+	       <option value="{{$data->nidn}}">
+	           {{$data->nidn}} - {{$data->nama}}
 	       </option>
 	       @endforeach
 	        </select>
@@ -42,11 +42,9 @@
 	     <div class="form-group">
 	        <label class="form-control-label">Role</label>
 	        <select name="role" class="form-control">
-	        @foreach($roles as $data)
-	       <option value="{{$data->name}}">
-	          {{$data->name}}
+	       <option value="dosen">
+	       	Dosen
 	       </option>
-	       @endforeach
 	        </select>
          <p class="text-danger">{{ $errors->first('role') }}</p>
 	    </div>

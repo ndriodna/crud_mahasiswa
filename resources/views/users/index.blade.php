@@ -10,7 +10,8 @@
 
 <div class="container-fluid" style="margin-top: -150px; margin-bottom: 50px;">
         <div class="p-2 bg-white rounded">
-    	<a href="{{route('users.create')}}" class="btn btn-success m-3"><i class="fas fa-plus-square"></i> Tambah</a>
+    	<a href="{{route('users.create')}}" class="btn btn-success m-3"><i class="fas fa-plus-square"></i> Tambah mahasiswa</a>
+    	<a href="{{route('users.createDosen')}}" class="btn btn-success m-3"><i class="fas fa-plus-square"></i> Tambah Dosen</a>
             
 	<div style="overflow-x: auto;">
      <table class="table table-striped table-bordered data-table bg-white tex-dark">
@@ -39,7 +40,12 @@
         				@csrf
         				@method('DELETE')
         		<a href="{{route('users.edit',$data->id)}}" class="btn btn-warning"><i class="fas fa-pen-square"></i></a>
-        			<button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                @foreach($data->getRoleNames() as $role)
+        			@if($role == "super admin")
+                    @else
+                    <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
+                    @endif
+                @endforeach
         		</form>
         		</td>
         	</tr>

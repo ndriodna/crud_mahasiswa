@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\Mahasiswa;
 use App\Models\Jurusan;
+use App\Models\Dosen;
+use Illuminate\Support\Facades\Auth;
 class HomeController extends Controller
 {
     /**
@@ -18,8 +20,9 @@ class HomeController extends Controller
      */
     public function __invoke()
     {
+        $dosen = Dosen::all();
         $mahasiswa = Mahasiswa::all();
         $jurusan = Jurusan::all();
-        return view('dashboard',compact('mahasiswa','jurusan'));
+        return view('dashboard',compact('dosen','mahasiswa','jurusan'));
     }
 }
