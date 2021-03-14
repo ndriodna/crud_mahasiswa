@@ -1,14 +1,14 @@
 
-## Install Laravel
+## How to install Laravel
 
-> git clone https://github.com/ndriodna/crud_mahasiswa
+1 git clone https://github.com/ndriodna/crud_mahasiswa
 #
-> composer install
+2 composer install
 #
-> php artisan key:generate
+3 php artisan key:generate
 #
-> cp .env.example .env
+4 cp .env.example .env
 #
-> php artisan migrate --seed
+5 php artisan migrate --seed
 #
-> php artisan serve
+6 php artisan serve
