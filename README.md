@@ -1,7 +1,7 @@
 
 ## How to install Laravel
 
-1.git clone https://github.com/ndriodna/crud_mahasiswa\
+1.git clone https://github.com/ndriodna/crud_mahasiswa \
 2.composer install\
 3.php artisan key:generate\
 4.cp .env.example .env\
